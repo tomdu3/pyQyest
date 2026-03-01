@@ -1545,6 +1545,47 @@ if 'purple' not in colors:
     print("Purple is NOT in the list.")
 ```
 
+### Making Our Own List with Random Numbers 🎲
+
+```python
+import random
+
+# Create a list of 20 random numbers between 1-100
+numbers = []
+for _ in range(20):
+    numbers.append(random.randint(1, 100))
+
+print(len(numbers))  # How many numbers? Output: 20
+print(numbers)       # Show all the random numbers
+```
+
+### Let's Make Game with Lists! 🎮
+
+**Animal Guessing Game:**
+```python
+animals = ["elephant", "donkey", "rabbit", "hamster", "parrot"]
+
+print("I'm thinking of an animal...")
+guess = input("Can you guess which animal? ").lower()
+
+if guess in animals:
+    print(f"🎉 Yes! {guess} is in my list!")
+else:
+    print("Sorry, that animal isn't in my list.")
+    print(f"My animals are: {animals}")
+```
+
+**Days of the Week Quiz:**
+```python
+days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
+answer = input("What's the first day of the week? ")
+if answer == days[0]:
+    print("Correct! 🎉")
+else:
+    print(f"Actually, it's {days[0]}")
+```
+
 ### Other Handy List Methods
 
 ```python
@@ -1745,9 +1786,13 @@ count = my_list.count(2)  # count occurrences
 
 ---
 
-## 📚 Lesson 9: For Loops - Doing Things Over and Over 🔄
+## 📚 Lesson 9: Loops - Fun with Repetition! 🔄
 
-### Why Do We Need Loops?
+### Two Types of Loops: For and While
+
+Loops help us repeat actions in programming. Imagine if you had to write the same thing 100 times - that would be boring! Loops do this repetitive work for us.
+
+### 1. FOR Loops - When We Know How Many Times to Repeat
 
 Imagine you had to print "I love Python" 100 times. Would you write 100 print statements? Of course not! That's where loops come in!
 
@@ -1880,6 +1925,32 @@ for word in words:
     if word == 'cat':
         cat_count += 1
 print(f"Found {cat_count} cats")  # 3
+```
+
+### 2. WHILE Loops - Repeat While Something is True
+
+A `while` loop is repeated until the condition we set after the word `while` becomes False.
+
+**Syntax:**
+```python
+while condition:
+    # code to repeat goes here
+```
+
+**Examples:**
+```python
+# Count while number is less than 5
+count = 1
+while count < 5:
+    print(count)
+    count = count + 1
+# Output: 1 2 3 4
+
+# Keep asking while answer is wrong
+password = ""
+while password != "unicorn":
+    password = input("Enter the magic word: ")
+print("Welcome!")
 ```
 
 ### Nested Loops - Loops Inside Loops
@@ -2056,19 +2127,123 @@ for i in range(len(my_list)):
 
 ---
 
+---
+
+## 📚 Mid-Course Recap: Strings, Lists and For Loops (Katerina's Guide) 📝
+
+Let's do a quick recap of what we've learned so far about our favorite collections!
+
+### **Strings**
+- Taking out one character/letter using index: `word[1]`
+- Taking out more characters (slicing): `word[2:6]`
+- Getting the length: `len(word)`
+
+```python
+word = 'Katerina'
+#       01234567
+
+print(word[6:])  # 'na'
+print(word[0:5]) # 'Kater'
+```
+
+### **Lists**
+- Taking out one element: `my_food[1]`
+- Taking out more elements (slicing): `my_food[1:3]`
+- Getting length: `len(my_food)`
+
+```python
+#index       0         1          2         3
+my_food = ['pizza', 'lasagna', 'sausage', 'ham']
+
+print(my_food[1])    # lasagna
+print(my_food[-1])   # ham
+```
+
+### **FOR Loops Recap**
+When looping through lists or strings, you can loop by **elements** or by **index**:
+
+**Looping by Elements (For-Each):**
+```python
+sentence = "This is a simple sentence."
+for letter in sentence:
+    print(letter)
+
+for meal in my_food:
+    print(meal)
+```
+
+**Looping by Index (when you need the position):**
+```python
+for i in range(len(my_food)):
+    print(f"{i+1}. {my_food[i]}")
+# 1. pizza
+# 2. lasagna
+```
+
 ## 📚 Lesson 10: Functions - Reusable Magic Spells 🪄
 
-### What Are Functions?
+### What is a Function?
+
+A **function** is like a magic recipe in programming! It's a special block of code that you can create once and use many times. Think of it like your favorite toy - you can play with it whenever you want without building it again each time!
 
 Imagine you have a magic spell that turns broccoli into ice cream. Instead of saying the whole spell every time, you give it a name like "broccoli_to_icecream" and just say THAT when you want ice cream!
 
-Functions are exactly that - reusable blocks of code with a name!
+### Why Are Functions Awesome? ✨
 
-### Why Use Functions?
+- **Save time** - Write code once, use it many times
+- **Stay organized** - Keep your code neat and tidy
+- **Fix easily** - Change in one place, and it works everywhere
 
-1. **Don't Repeat Yourself (DRY)** - Write once, use many times
-2. **Organize your code** - Break big problems into small pieces
-3. **Easier to fix bugs** - Fix in one place, it's fixed everywhere!
+### Two Important Parts of a Function
+
+#### 1. Function Definition 📝
+A **function definition** is like writing a shopping list or a recipe. You're creating a list of tasks that the computer should remember, but you're NOT doing them yet!
+
+```python
+def my_function():
+    print("This is task 1")
+    print("This is task 2")
+    print("This is task 3")
+```
+
+**Key Points:**
+- Use `def` to define (create) a function
+- You're just giving instructions - nothing happens yet!
+- Like writing "Make sandwich" on a recipe card
+
+#### 2. Function Call 🎯
+A **function call** is when you actually tell the computer: "OK, now DO the tasks from that function definition!"
+
+```python
+my_function()  # This makes the function run!
+```
+
+**Key Points:**
+- Use the function name + parentheses `()`
+- This is when the code actually executes
+- Like saying "OK, now make the sandwich using that recipe!"
+
+### Let's See How They Work Together
+
+```python
+# FUNCTION DEFINITION - Just writing the instructions
+def morning_routine():
+    print("🌅 Good morning!")
+    print("🦷 Brush teeth")
+    print("🍳 Eat breakfast")
+    print("🎒 Pack school bag")
+
+# FUNCTION CALL - Actually doing the tasks
+morning_routine()  # This runs the code!
+morning_routine()  # You can run it many times!
+```
+
+**💡 Remember These Rules:**
+1. **Definition**: Start with `def function_name():`
+2. **Indent**: Use Tab key for everything inside the function
+3. **Call**: Use `function_name()` to run the function
+
+**🌟 Pro Tip:** Think of function definition like writing instructions for a robot, and function call like pressing the "GO" button! The robot won't move until you press the button! 🤖
 
 ### Defining and Calling Functions
 
@@ -2280,6 +2455,60 @@ def animal_sound(animal):
 animal_sound("dog")
 animal_sound("cat")
 animal_sound("lion")
+```
+
+### 🎯 Time to Practice! (Homework) 
+
+**Task 1: Fill in the Blanks**
+Complete this function by filling in the blanks:
+```python
+def ___():
+    print("I love Python!")
+    print("Programming is fun!")
+
+# Don't forget to call your function below:
+______
+```
+
+**Task 2: Fix the Broken Function**
+This function has 3 mistakes. Can you find and fix them?
+```python
+def welcome_message
+    print("Welcome to Python class!")
+    print("Let's learn about functions!")
+    Print("Have fun!")
+
+welcom_message()
+```
+*Hint 1:* Is the definition of a function written correctly?
+*Hint 2:* Are all the print statements in the function written correctly?
+*Hint 3:* Is the function call written correctly?
+
+**Task 3: Create Your Own Function**
+Create a function called `my_day` that prints 3 things you do every day. Remember to call your function!
+
+**Task 4: The Counting Function**
+Create a function that counts from 1 to 5 and says something nice after counting. Don't forget to call your function!
+```python
+def count_and_cheer():
+    # First, print numbers 1 through 5
+    # Then print "Great job counting!"
+    # Your code goes here
+```
+
+**Task 5: Super Function Challenge! 🚀**
+Create a function that:
+1. Greets your best friend by name
+2. Asks about their favorite hobby
+3. Says something encouraging
+```python
+def friend_chat():
+    # Step 1: Print a greeting with your friend's name
+    # Step 2: Print a question about their favorite hobby
+    # Step 3: Print something encouraging
+    # Bonus: Add one more nice message!
+
+# Call your function here
 ```
 
 ### 🌟 Challenge: Create a Calculator
