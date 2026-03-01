@@ -1,8 +1,5 @@
 # Python for Kids - Lesson Series
 
-I'll create a comprehensive series of markdown lessons based on your material. Each lesson will be fun, clear, and include references to external resources.
-
----
 
 ## 📚 Lesson 1: Meet Python! 🐍
 
@@ -1586,6 +1583,47 @@ else:
     print(f"Actually, it's {days[0]}")
 ```
 
+### Making Our Own List with Random Numbers 🎲
+
+```python
+import random
+
+# Create a list of 20 random numbers between 1-100
+numbers = []
+for _ in range(20):
+    numbers.append(random.randint(1, 100))
+
+print(len(numbers))  # How many numbers? Output: 20
+print(numbers)       # Show all the random numbers
+```
+
+### Let's Make Game with Lists! 🎮
+
+**Animal Guessing Game:**
+```python
+animals = ["elephant", "donkey", "rabbit", "hamster", "parrot"]
+
+print("I'm thinking of an animal...")
+guess = input("Can you guess which animal? ").lower()
+
+if guess in animals:
+    print(f"🎉 Yes! {guess} is in my list!")
+else:
+    print("Sorry, that animal isn't in my list.")
+    print(f"My animals are: {animals}")
+```
+
+**Days of the Week Quiz:**
+```python
+days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
+answer = input("What's the first day of the week? ")
+if answer == days[0]:
+    print("Correct! 🎉")
+else:
+    print(f"Actually, it's {days[0]}")
+```
+
 ### Other Handy List Methods
 
 ```python
@@ -1953,6 +1991,32 @@ while password != "unicorn":
 print("Welcome!")
 ```
 
+### 2. WHILE Loops - Repeat While Something is True
+
+A `while` loop is repeated until the condition we set after the word `while` becomes False.
+
+**Syntax:**
+```python
+while condition:
+    # code to repeat goes here
+```
+
+**Examples:**
+```python
+# Count while number is less than 5
+count = 1
+while count < 5:
+    print(count)
+    count = count + 1
+# Output: 1 2 3 4
+
+# Keep asking while answer is wrong
+password = ""
+while password != "unicorn":
+    password = input("Enter the magic word: ")
+print("Welcome!")
+```
+
 ### Nested Loops - Loops Inside Loops
 
 ```python
@@ -2126,6 +2190,59 @@ for i in range(len(my_list)):
 - [ ] I completed all the exercises
 
 ---
+
+---
+
+## 📚 Mid-Course Recap: Strings, Lists and For Loops (Katerina's Guide) 📝
+
+Let's do a quick recap of what we've learned so far about our favorite collections!
+
+### **Strings**
+- Taking out one character/letter using index: `word[1]`
+- Taking out more characters (slicing): `word[2:6]`
+- Getting the length: `len(word)`
+
+```python
+word = 'Katerina'
+#       01234567
+
+print(word[6:])  # 'na'
+print(word[0:5]) # 'Kater'
+```
+
+### **Lists**
+- Taking out one element: `my_food[1]`
+- Taking out more elements (slicing): `my_food[1:3]`
+- Getting length: `len(my_food)`
+
+```python
+#index       0         1          2         3
+my_food = ['pizza', 'lasagna', 'sausage', 'ham']
+
+print(my_food[1])    # lasagna
+print(my_food[-1])   # ham
+```
+
+### **FOR Loops Recap**
+When looping through lists or strings, you can loop by **elements** or by **index**:
+
+**Looping by Elements (For-Each):**
+```python
+sentence = "This is a simple sentence."
+for letter in sentence:
+    print(letter)
+
+for meal in my_food:
+    print(meal)
+```
+
+**Looping by Index (when you need the position):**
+```python
+for i in range(len(my_food)):
+    print(f"{i+1}. {my_food[i]}")
+# 1. pizza
+# 2. lasagna
+```
 
 ---
 
@@ -2455,6 +2572,60 @@ def animal_sound(animal):
 animal_sound("dog")
 animal_sound("cat")
 animal_sound("lion")
+```
+
+### 🎯 Time to Practice! (Homework) 
+
+**Task 1: Fill in the Blanks**
+Complete this function by filling in the blanks:
+```python
+def ___():
+    print("I love Python!")
+    print("Programming is fun!")
+
+# Don't forget to call your function below:
+______
+```
+
+**Task 2: Fix the Broken Function**
+This function has 3 mistakes. Can you find and fix them?
+```python
+def welcome_message
+    print("Welcome to Python class!")
+    print("Let's learn about functions!")
+    Print("Have fun!")
+
+welcom_message()
+```
+*Hint 1:* Is the definition of a function written correctly?
+*Hint 2:* Are all the print statements in the function written correctly?
+*Hint 3:* Is the function call written correctly?
+
+**Task 3: Create Your Own Function**
+Create a function called `my_day` that prints 3 things you do every day. Remember to call your function!
+
+**Task 4: The Counting Function**
+Create a function that counts from 1 to 5 and says something nice after counting. Don't forget to call your function!
+```python
+def count_and_cheer():
+    # First, print numbers 1 through 5
+    # Then print "Great job counting!"
+    # Your code goes here
+```
+
+**Task 5: Super Function Challenge! 🚀**
+Create a function that:
+1. Greets your best friend by name
+2. Asks about their favorite hobby
+3. Says something encouraging
+```python
+def friend_chat():
+    # Step 1: Print a greeting with your friend's name
+    # Step 2: Print a question about their favorite hobby
+    # Step 3: Print something encouraging
+    # Bonus: Add one more nice message!
+
+# Call your function here
 ```
 
 ### 🎯 Time to Practice! (Homework) 
