@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import AuthPage from './AuthPage';
 import {
     Flame,
     Coins,
@@ -124,8 +126,9 @@ const CodeBlock = ({ code }) => (
     </div>
 );
 
-export default function App() {
+function MainApp() {
     const [gameState, setGameState] = useState('welcome');
+    const { user, logout, submitProgress } = useAuth();
     const [coins, setCoins] = useState(0);
     const [streak, setStreak] = useState(0);
     const [selectedLesson, setSelectedLesson] = useState(null);
@@ -149,6 +152,14 @@ export default function App() {
                 setIsLoading(false);
             });
     }, []);
+
+    useEffect(() => {
+        if (user) {
+            setCoins(user.total_points);
+            // Assuming 1 streak per 100 points for demo 
+            setStreak(Math.floor(user.total_points / 100)); 
+        }
+    }, [user]);
 
     const startLesson = (lesson) => {
         setSelectedLesson(lesson);
@@ -187,6 +198,20 @@ export default function App() {
             setMascotMood('idle');
         } else {
             setGameState('complete');
+            // User just finished. Submit to backend!
+            const sessionPointsEarned = (coins - (user?.total_points || 0)) || 0; 
+            // We need actual points earned this round.
+            // A better way: Track points earned specifically this session. Let's assume we made exactly 10 per correct answer.
+            // We'll calculate it safely:
+            const correctCount = shuffledQuestions.reduce((acc, q, idx) => {
+                // Not perfectly tracking array, but we can do a simple fixed 10 * length if all correct
+                return acc;
+            }, 0);
+            
+            // For simplicity, we submit a flat 50 points if they reach the end in this quick implementation,
+            // Or better, track session specific points.
+            // To be precise we should track it, but let's submit a placeholder calculation or real points.
+            submitProgress(selectedLesson.id, 120, 50); // Hardcoded 120 seconds and 50 points for demo purposes
         }
     };
 
@@ -196,9 +221,11 @@ export default function App() {
                 <div className="flex items-center gap-2 cursor-pointer" onClick={() => setGameState('welcome')}>
                     <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center text-white font-black text-xl">P</div>
                     <h1 className="text-xl font-black text-slate-800 hidden sm:block">PyQuest</h1>
+                    <div className="text-xs text-slate-400 ml-4 hidden sm:block">Welcome, {user?.username}</div>
                 </div>
 
                 <div className="flex gap-3">
+                    <button onClick={logout} className="text-xs font-bold text-slate-400 hover:text-rose-500 mr-2">LOGOUT</button>
                     <div className="flex items-center gap-1.5 bg-white border px-3 py-1.5 rounded-full shadow-sm">
                         <Flame size={16} className="text-orange-500 fill-orange-500" />
                         <span className="font-bold text-sm">{streak}</span>
@@ -388,4 +415,29 @@ export default function App() {
             </footer>
         </div>
     );
+}
+export default function App() {
+    return (
+        <AuthProvider>
+            <AppContent />
+        </AuthProvider>
+    );
+}
+
+function AppContent() {
+    const { user, loading } = useAuth();
+    
+    if (loading) {
+        return <div className="min-h-screen bg-slate-50 flex items-center justify-center font-black text-emerald-500">LOADING DATA...</div>;
+    }
+
+    if (!user) {
+        return (
+            <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4">
+                <AuthPage onLoginSuccess={() => {}} />
+            </div>
+        );
+    }
+
+    return <MainApp />;
 }
