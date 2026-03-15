@@ -1,7 +1,7 @@
 # Python for Kids - Lesson Series
 
 
-## 📚 Lesson 1: Meet Python! 🐍
+## 📚 Lesson 1: Hello Python! 🐍
 
 ### What is Python?
 
