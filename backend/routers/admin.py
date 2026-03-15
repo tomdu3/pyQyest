@@ -22,12 +22,40 @@ except Exception as e:
     print(f"Failed to initialize Gemini Client: {e}")
     client = None
 
+def sync_lesson_titles(lessons_data):
+    if not os.path.exists(LESSONS_FILE):
+        return lessons_data
+        
+    titles_map = {}
+    with open(LESSONS_FILE, "r") as f:
+        for line in f:
+            # Match headers like "## 📚 Lesson 1: Meet Python! 🐍"
+            match = re.match(r'^##\s+.*?Lesson\s+(\d+):\s+(.*?)$', line.strip(), re.IGNORECASE)
+            if match:
+                lesson_id = int(match.group(1))
+                title = match.group(2).strip()
+                titles_map[lesson_id] = title
+                
+    changed = False
+    for lesson in lessons_data:
+        lesson_id = lesson.get("id")
+        if lesson_id in titles_map and lesson.get("title") != titles_map[lesson_id]:
+            lesson["title"] = titles_map[lesson_id]
+            changed = True
+            
+    if changed:
+        with open(QUESTIONS_FILE, "w") as f:
+            json.dump(lessons_data, f, indent=2)
+            
+    return lessons_data
+
 def load_questions():
     if not os.path.exists(QUESTIONS_FILE):
         return []
     with open(QUESTIONS_FILE, "r") as f:
         try:
-            return json.load(f)
+            data = json.load(f)
+            return sync_lesson_titles(data)
         except json.JSONDecodeError:
             return []
 
