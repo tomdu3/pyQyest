@@ -14,6 +14,8 @@ LESSONS_FILE = "lessons.md"
 
 # Instantiate Gemini Client 
 # Note: Requires GEMINI_API_KEY environment variable to be set.
+from dotenv import load_dotenv
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
 try:
     client = genai.Client()
 except Exception as e:
