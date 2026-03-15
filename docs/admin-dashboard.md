@@ -8,6 +8,7 @@ The PyQuest Admin Dashboard is a backend-driven application built using FastAPI 
 - **Preview & Edit**: Provides an interface for the admin to review the AI's suggested question, code snippets, options, and explanations, and make manual adjustments.
 - **Direct Save & Upsert**: Hitting "Save" will directly append the newly validated question into the frontend's static JSON data store (`frontend/public/data/python-questions.json`) or update it if the question ID already exists.
 - **Question Management**: Displays all existing questions for a selected lesson, allowing you to edit them directly, delete them entirely, or ask Gemini to rephrase them to improve clarity or engagement.
+- **Auto-Sync Lesson Titles**: When loading the dashboard, the backend automatically scans `lessons.md` to sync any modified lesson titles with the JSON bank, so the frontend stays effortlessly up-to-date.
 
 ## Architecture
 
@@ -18,6 +19,7 @@ The PyQuest Admin Dashboard is a backend-driven application built using FastAPI 
   - Implements `POST /save` to update or insert questions into the JSON file safely.
   - Implements `POST /delete` to remove questions from the JSON file safely.
   - Implements `POST /rephrase` to use Gemini to rephrase an existing question's contents.
+  - Automatically invokes `sync_lesson_titles()` upon load to keep `lessons.md` headers in parity with the JSON dataset.
 * **Frontend Template (`backend/templates/admin_dashboard.html`)**: 
   - A clean, responsive dashboard designed with Tailwind CSS to manage inputs and formatting visually.
   - An "Existing Questions" list below the main panels to manage previously generated questions.
