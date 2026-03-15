@@ -126,10 +126,18 @@ async def save_question(
         "youtubeLink": youtubeLink
     }
     
-    # Find the target lesson and append the question
+    # Find the target lesson and append/update the question
+    question_updated = False
     for lesson in lessons_data:
         if lesson.get("id") == lesson_id:
-            lesson.setdefault("questions", []).append(new_question)
+            questions = lesson.setdefault("questions", [])
+            for i, q in enumerate(questions):
+                if q.get("id") == question_id:
+                    questions[i] = new_question
+                    question_updated = True
+                    break
+            if not question_updated:
+                questions.append(new_question)
             break
             
     # Save back to file
@@ -139,5 +147,95 @@ async def save_question(
     # Render dash with success msg
     return templates.TemplateResponse(
         "admin_dashboard.html",
-        {"request": request, "lessons": lessons_data, "suggestion": None, "success_message": "Question saved successfully!", "error": None}
+        {"request": request, "lessons": lessons_data, "suggestion": None, "success_message": "Question saved successfully!", "target_lesson_id": lesson_id, "error": None}
+    )
+
+@router.post("/delete")
+async def delete_question(
+    request: Request,
+    lesson_id: int = Form(...),
+    question_id: str = Form(...)
+):
+    lessons_data = load_questions()
+    
+    deleted = False
+    for lesson in lessons_data:
+        if lesson.get("id") == lesson_id:
+            questions = lesson.get("questions", [])
+            filtered_questions = [q for q in questions if q.get("id") != question_id]
+            if len(questions) != len(filtered_questions):
+                lesson["questions"] = filtered_questions
+                deleted = True
+            break
+            
+    if deleted:
+        with open(QUESTIONS_FILE, "w") as f:
+            json.dump(lessons_data, f, indent=2)
+        msg = "Question deleted successfully!"
+        err = None
+    else:
+        msg = None
+        err = "Question not found."
+        
+    return templates.TemplateResponse(
+        "admin_dashboard.html",
+        {"request": request, "lessons": lessons_data, "suggestion": None, "success_message": msg, "target_lesson_id": lesson_id, "error": err}
+    )
+
+@router.post("/rephrase", response_class=HTMLResponse)
+async def rephrase_question(
+    request: Request,
+    lesson_id: int = Form(...),
+    question_id: str = Form(...),
+    original_question: str = Form(...),
+    original_options: str = Form(""),
+    original_explanation: str = Form("")
+):
+    lessons_data = load_questions()
+    
+    if not client:
+        return templates.TemplateResponse(
+            "admin_dashboard.html",
+            {"request": request, "lessons": lessons_data, "suggestion": None, "target_lesson_id": lesson_id, "error": "Gemini Client not initialized. Is GEMINI_API_KEY set?"}
+        )
+
+    prompt = f"""
+    You are an expert Python teacher for kids.
+    Please rephrase and improve the following multiple-choice question to make it more engaging or clearer.
+    
+    Original Question: {original_question}
+    Original Options: {original_options}
+    Original Explanation: {original_explanation}
+    
+    Return the response strictly as a JSON object matching this schema:
+    {{
+      "id": "{question_id}",
+      "question": "The newly rephrased question text",
+      "codeSnippet": "Python code snippet with missing parts (optional, use blanks like ____)",
+      "options": ["Option A", "Option B", "Option C", "Option D"],
+      "correctAnswer": "The exactly matching correct option",
+      "explanation": "Why this is correct",
+      "youtubeLink": "A relevant youtube link or empty string"
+    }}
+
+    Do not include markdown blocks like ```json around the response. Return raw JSON.
+    """
+
+    try:
+        response = client.models.generate_content(
+            model='gemini-2.5-flash',
+            contents=prompt,
+        )
+        cleaned_response = re.sub(r'```json\n|```', '', response.text).strip()
+        suggestion = json.loads(cleaned_response)
+        
+    except Exception as e:
+        return templates.TemplateResponse(
+            "admin_dashboard.html",
+            {"request": request, "lessons": lessons_data, "suggestion": None, "target_lesson_id": lesson_id, "error": f"Failed to rephrase suggestion: {str(e)}"}
+        )
+
+    return templates.TemplateResponse(
+        "admin_dashboard.html",
+        {"request": request, "lessons": lessons_data, "suggestion": suggestion, "target_lesson_id": lesson_id, "error": None}
     )
