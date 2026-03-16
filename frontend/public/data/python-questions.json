@@ -1,12 +1,12 @@
 [
   {
     "id": 1,
-    "title": "Meet Python! 🐍",
+    "title": "Hello Python! \ud83d\udc0d",
     "description": "Learn how to make the computer talk with print() and comments.",
     "questions": [
       {
         "id": "l1-q1",
-        "question": "How do you tell Python to show 'Hello'?",
+        "question": "How do you tell Python to display 'Hello'?",
         "codeSnippet": "____('Hello')",
         "options": [
           "show",
@@ -20,8 +20,8 @@
       },
       {
         "id": "l1-q2",
-        "question": "Which symbol starts a comment?",
-        "codeSnippet": "____ This is a note",
+        "question": "Imagine you're writing a super cool Python program, and you want to leave a secret note for yourself or a friend right inside your code! This note won't be run by the computer, it's just for humans to read. Which special symbol do you use to tell Python: 'Hey, this is just a note, please ignore this part!'?",
+        "codeSnippet": "____ This is my secret note!",
         "options": [
           "//",
           "--",
@@ -29,8 +29,8 @@
           "/*"
         ],
         "correctAnswer": "#",
-        "explanation": "# is for comments!",
-        "youtubeLink": "https://www.youtube.com/watch?v=kqtD5dpn9C8&t=320s"
+        "explanation": "In Python, the `#` symbol is like a special signal! When Python sees `#` at the beginning of a line (or even after some code), it knows that everything after it on that line is just a friendly note for humans. It won't try to run it as code, so you can write helpful reminders and explanations for your program!",
+        "youtubeLink": ""
       },
       {
         "id": "l1-q3",
@@ -283,12 +283,40 @@
         "correctAnswer": "An editor",
         "explanation": "It's where we write code!",
         "youtubeLink": "https://www.youtube.com/watch?v=kqtD5dpn9C8"
+      },
+      {
+        "id": "lesson2-variable-naming-q1",
+        "question": "Which of these is NOT a correct way to name a variable in Python?",
+        "codeSnippet": "",
+        "options": [
+          "my_age",
+          "favoriteFood",
+          "1st_place",
+          "user_name"
+        ],
+        "correctAnswer": "1st_place",
+        "explanation": "Python variable names cannot start with a number. They must start with a letter or an underscore. 'my_age', 'favoriteFood', and 'user_name' are all correct ways to name variables.",
+        "youtubeLink": "https://www.youtube.com/watch?v=zHlJ7B5Wn-s"
+      },
+      {
+        "id": "l1-q1",
+        "question": "How do you tell Python to display 'Hello'?",
+        "codeSnippet": "____('Hello')",
+        "options": [
+          "show",
+          "print",
+          "say",
+          "talk"
+        ],
+        "correctAnswer": "print",
+        "explanation": "print() is Python's voice!",
+        "youtubeLink": "https://www.youtube.com/watch?v=kqtD5dpn9C8&t=300s"
       }
     ]
   },
   {
     "id": 2,
-    "title": "Variables & Boxes 📦",
+    "title": "Variables and Values \ud83d\udce6",
     "description": "Store data in labeled boxes called variables.",
     "questions": [
       {
@@ -568,8 +596,8 @@
   },
   {
     "id": 3,
-    "title": "Data Types 🔤",
-    "description": "Numbers, text, and booleans—what's in the box?",
+    "title": "Data Types - What Kind of Value? \ud83d\udd24",
+    "description": "Numbers, text, and booleans\u2014what's in the box?",
     "questions": [
       {
         "id": "l3-q1",
@@ -845,7 +873,7 @@
   },
   {
     "id": 4,
-    "title": "Numbers & Math ➕",
+    "title": "Numbers and Math \u2795\u2796\u2716\ufe0f\u2797",
     "description": "Use Python as a super-powered calculator.",
     "questions": [
       {
@@ -1116,7 +1144,7 @@
   },
   {
     "id": 5,
-    "title": "Strings & Text ✏️",
+    "title": "Strings - Working with Text \u270f\ufe0f",
     "description": "Slice, dice, and glue text together.",
     "questions": [
       {
@@ -1387,7 +1415,7 @@
   },
   {
     "id": 6,
-    "title": "User Input 🎤",
+    "title": "Getting User Input \ud83c\udfa4",
     "description": "Make your program listen to the user.",
     "questions": [
       {
@@ -1659,7 +1687,7 @@
   },
   {
     "id": 7,
-    "title": "Decisions (If) 🤔",
+    "title": "Making Decisions with if/elif/else \ud83e\udd14",
     "description": "Teach your code how to make choices.",
     "questions": [
       {
@@ -1927,7 +1955,7 @@
   },
   {
     "id": 8,
-    "title": "Lists 🛒",
+    "title": "Lists - Shopping Carts for Data \ud83d\uded2",
     "description": "Organize collections of items in shopping carts.",
     "questions": [
       {
@@ -2205,7 +2233,7 @@
   },
   {
     "id": 9,
-    "title": "Loops 🔄",
+    "title": "Loops - Fun with Repetition! \ud83d\udd04",
     "description": "Repeat actions without writing them twice.",
     "questions": [
       {
@@ -2474,7 +2502,7 @@
   },
   {
     "id": 10,
-    "title": "Functions 🪄",
+    "title": "Functions - Reusable Magic Spells \ud83e\ude84",
     "description": "Write magic spells once and use them forever.",
     "questions": [
       {
