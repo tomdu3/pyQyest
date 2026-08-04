@@ -53,3 +53,26 @@ To run the PyQuest frontend application locally, ensure you have [Node.js](https
 
 4. **Start Learning!**
    Open your web browser and navigate to the local server address provided in the terminal window (usually `http://localhost:5173`) to launch the interactive quiz.
+
+### Backend FastAPI Server (`backend/`)
+
+1. **Install backend dependencies:**
+   Using `uv` (recommended):
+   ```bash
+   uv sync
+   ```
+   Or using standard `pip`:
+   ```bash
+   pip install -r backend/requirements.txt
+   ```
+
+2. **(Optional) Start PostgreSQL Database via Docker:**
+   ```bash
+   docker-compose up -d
+   ```
+
+3. **Start the FastAPI backend server:**
+   ```bash
+   uvicorn backend.main:app --reload
+   ```
+
