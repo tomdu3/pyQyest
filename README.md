@@ -12,14 +12,18 @@ Welcome to **PyQuest** and the **Python Lessons** repository! This project is de
 ## 📖 Features
 
 ### 1. Python Lessons (`lessons.md`)
+
 A structured markdown guide tailored for beginners. It features:
+
 - **10 Comprehensive Modules:** Starting with printing "Hello World" and progressing through variables, numbers, strings, user input, conditionals, lists, loops, and functions.
 - **Engaging Explanations:** Fun, real-world analogies (like comparing variables to boxes and functions to magic recipes).
 - **Code Examples:** Clear, easy-to-read Python code snippets demonstrating each concept.
 - **Micro-tasks & Homework:** Small, practical exercises embedded within the lessons to reinforce learning right away.
 
 ### 2. PyQuest App (`frontend/`)
+
 A gamified, interactive quiz application built to test the knowledge gained from the `lessons.md` curriculum.
+
 - **10 Unique Quests:** Each quest maps directly to one of the 10 lesson modules.
 - **Gamified Learning Experience:** Earn XP coins, build answer streaks, and receive instant visual and audio feedback.
 - **Animated Mascot:** Meet "Pixel the Python," an animated companion who reacts to your answers (cheering when you're correct, and thinking when you're wrong).
@@ -31,48 +35,57 @@ A gamified, interactive quiz application built to test the knowledge gained from
 ## 🚀 Local Deployment Instructions
 
 ### Python Lessons
+
 No setup is required! You can read the lessons directly in your favorite text editor, IDE (like VS Code), or Markdown viewer. Just open the `lessons.md` file in the root directory.
 
+### Backend FastAPI Server (`backend/`)
+
+1. **Install backend dependencies:**
+   Using `uv` (recommended):
+
+   ```bash
+   uv sync
+   ```
+
+   Or using standard `pip`:
+
+   ```bash
+   pip install -r backend/requirements.txt
+   ```
+
+2. **(Optional) Start PostgreSQL Database via Docker:**
+
+   ```bash
+   docker-compose up -d
+   ```
+
+3. **Start the FastAPI backend server:**
+
+   ```bash
+   uv run uvicorn backend.main:app --reload
+   ```
+
 ### PyQuest React App
+
 To run the PyQuest frontend application locally, ensure you have [Node.js](https://nodejs.org/) installed (Node.js version 20.19+ or 22.12+ is recommended by Vite).
 
 1. **Navigate to the frontend directory:**
+
    ```bash
    cd frontend
    ```
 
 2. **Install the required dependencies:**
+
    ```bash
    npm install
    ```
 
 3. **Start the Vite development server:**
+
    ```bash
    npm run dev
    ```
 
 4. **Start Learning!**
    Open your web browser and navigate to the local server address provided in the terminal window (usually `http://localhost:5173`) to launch the interactive quiz.
-
-### Backend FastAPI Server (`backend/`)
-
-1. **Install backend dependencies:**
-   Using `uv` (recommended):
-   ```bash
-   uv sync
-   ```
-   Or using standard `pip`:
-   ```bash
-   pip install -r backend/requirements.txt
-   ```
-
-2. **(Optional) Start PostgreSQL Database via Docker:**
-   ```bash
-   docker-compose up -d
-   ```
-
-3. **Start the FastAPI backend server:**
-   ```bash
-   uvicorn backend.main:app --reload
-   ```
-
